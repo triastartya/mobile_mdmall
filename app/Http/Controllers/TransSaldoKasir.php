@@ -145,7 +145,7 @@ class TransSaldoKasir extends Controller
         }
     }
 
-    public function get_sembako_lokasi(Request $request){
+    public function get_sembako_lokasi_1(Request $request){
         try{
             $lokasi = Lokasi::all();
             $data = [];
@@ -164,6 +164,22 @@ class TransSaldoKasir extends Controller
                 $row->total = $total;
                 $data[] = $row;
             }
+            return response()->json(['status'=>true,'data'=>$data]);
+        } catch (\Exception $ex) {
+            return response()->json(['status'=>false,'data'=>[],'message'=>$ex->getMessage()]);
+        }
+    }
+    public function get_sembako_lokasi(Request $request){
+        try{
+            $data = DB::select("
+                SELECT lokasi.`IdLokasi`,lokasi.`Lokasi`,IFNULL(SUM(transsembakodetailbarang.`Nominal`), 0) AS total FROM lokasi 
+                LEFT JOIN transsembakoheader
+                ON lokasi.`IdLokasi`= transsembakoheader.`IdLokasi`
+                LEFT JOIN transsembakodetailbarang 
+                ON transsembakoheader.`TransID`=transsembakodetailbarang.`TransID`
+                WHERE transsembakoheader.`Tanggal` BETWEEN ? AND ?
+                group by lokasi.`IdLokasi`,lokasi.`Lokasi`
+            ",[$request->tanggal_mulai.' 00:00:00',$request->tanggal_sampai.' 23:59:59']);
             return response()->json(['status'=>true,'data'=>$data]);
         } catch (\Exception $ex) {
             return response()->json(['status'=>false,'data'=>[],'message'=>$ex->getMessage()]);
