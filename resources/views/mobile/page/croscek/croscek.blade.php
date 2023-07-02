@@ -21,7 +21,8 @@
                     </div>
                 </div>
                 <hr/>
-                <div class="uk-accordion">
+                
+                {{-- <div class="uk-accordion">
                     <span ng-repeat="x in data">
                     <h3 class="uk-accordion-title"><b><% x.lokasi.Lokasi %></b></h3>
                     <div class="uk-accordion-content">
@@ -87,6 +88,95 @@
                         </table>
                     </div>
                     </span>
+                </div> --}}
+                <div style="margin-top: 10px;" class="uk-grid-margin" ng-repeat="x in data"  ng-click="handleClickLokasi(x)">
+                    <div class="md-card md-card-success">
+                        <div class="md-card-content">
+                            <table class="uk-table" style="margin-bottom: 2px;">
+                                <tbody>
+                                    <tr style="font-weight:bold">
+                                        <td><% x.lokasi.Lokasi %>,Kasir <% x.UserKasir %> </td>
+                                        <td style="text-align:right"><% x.JumlahPenerimaanVerSistem | currency:"" %></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="uk-modal uk-modal-card-fullscreen" id="modal_barang">
+        <div class="uk-modal-dialog uk-modal-dialog-blank">
+            <div class="md-card uk-height-viewport">
+                <div class="md-card-toolbar" style="background: #1976d2!important;">
+                    <span class="md-icon material-icons uk-modal-close" style="color:#fff!important">&#xE5C4;</span>
+                    <h3 class="md-card-toolbar-heading-text" style="color:#fff!important">
+                        <% detail.lokasi.Lokasi %>
+                    </h3> 
+                </div>
+                
+                <div class="md-card-content">
+                    <table class="uk-table">
+                        <tbody>
+                        <tr>
+                            <td>Faktur</td>
+                            <td style="text-align:right"><% detail.FakturSaldoKasir %></td>
+                        </tr>
+                        <tr>
+                            <td>Waktu Buka Kasir</td>
+                            <td style="text-align:right"><% detail.WaktuBukaKasir %></td>
+                        </tr>
+                        <tr>
+                            <td>Waktu Tutup Kasir</td>
+                            <td style="text-align:right"><% detail.WaktuTutupKasir %></td>
+                        </tr>
+                         <tr>
+                            <td>Waktu CrosCek</td>
+                            <td style="text-align:right"><% detail.WaktuValidasiSpvToko %></td>
+                        </tr>
+                         <tr>
+                            <td>Nama Kasir</td>
+                            <td style="text-align:right"><% detail.UserKasir %></td>
+                        </tr>
+                         <tr>
+                            <td>Nama Spv Kasir</td>
+                            <td style="text-align:right"><% detail.UserValidasiSpvToko %></td>
+                        </tr>
+                        <tr>
+                            <td>Ket. Tutup Kasir</td>
+                            <td style="text-align:right"><% detail.KeteranganTutupKasir %></td>
+                        </tr>
+                        <tr>
+                            <td>Ket. CrosCek</td>
+                            <td style="text-align:right"><% detail.KeteranganValidasiSpvToko %></td>
+                        </tr>
+                        <tr>
+                            <td>Jumlah Modal</td>
+                            <td style="text-align:right"><% detail.JumlahModalAwal | currency:"" %></td>
+                        </tr>
+                        <tr>
+                            <td>Saldo Di Kasir</td>
+                            <td style="text-align:right"><% detail.JumlahPenerimaanVerUser - x.JumlahStoranBank | currency:""%></td>
+                        </tr>
+                        <tr>
+                            <td>Stor Ke Bank </td>
+                            <td style="text-align:right"><% detail.JumlahStoranBank  | currency:"" %></td>
+                        </tr>
+                        <tr>
+                            <td>Pendapatan Versi User Kasir</td>
+                            <td style="text-align:right"><% detail.JumlahPenerimaanVerUser | currency:"" %></td>
+                        </tr>
+                        <tr>
+                            <td>Pendapatan Versi Sistem</td>
+                            <td style="text-align:right"><% detail.JumlahPenerimaanVerSistem | currency:"" %></td>
+                        </tr>
+                        <tr>
+                            <td>Selisih</td>
+                            <td style="text-align:right"><% detail.JumlahPenerimaanVerSistem - detail.JumlahPenerimaanVerUser | currency:"" %></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

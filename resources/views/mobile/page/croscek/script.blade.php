@@ -11,6 +11,8 @@
             
         })
         
+        const modal_barang = UIkit.modal("#modal_barang");
+        
         $scope.get_data = function(){
             Swal.fire({title: 'Loading..',onOpen: () => {Swal.showLoading()}})
             $http.post("{{ url('api/mob/get_croscek') }}",{
@@ -23,6 +25,13 @@
                     Swal.fire({icon: 'error',title: 'Oops...',text: res.data.message,})
                 }
             });
+        }
+        
+        $scope.detail = null;
+        $scope.handleClickLokasi = function(x){
+            console.log(x);
+            $scope.detail = x;
+            modal_barang.show();
         }
 
         $scope.get_data();
